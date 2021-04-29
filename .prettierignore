@@ -1,0 +1,10 @@
+# Prettier configuration file for ignoring paths.
+#
+# For more information, visit https://prettier.io/docs/en/ignore.html.
+
+.git/
+cypress/
+dist/
+node_modules/
+package-lock.json
+tmp/

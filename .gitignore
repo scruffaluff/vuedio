@@ -1,0 +1,11 @@
+# Git configuration file for ignoring untracked paths.
+#
+# For more information, visit https://git-scm.com/docs/gitignore.
+
+.DS_Store
+.vscode
+cypress/
+dist/
+node_modules/
+tests/e2e/screenshots/
+tests/e2e/videos/

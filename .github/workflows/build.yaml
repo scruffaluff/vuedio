@@ -1,0 +1,67 @@
+# GitHub Actions workflow file.
+#
+# For more information, visit
+# https://docs.github.com/actions/learn-github-actions.
+
+name: build
+
+# Make workflow run only for commits pushed to othe develop, feature, master
+# branches, or pull requests made to the develop and master branches.
+on:
+  push:
+    branches:
+      - develop
+      - feature/*
+      - master
+  pull_request:
+    branches:
+      - develop
+      - master
+
+jobs:
+  lint:
+    name: Check code with formatter and linter
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code repository
+        uses: actions/checkout@v2
+      - name: Install Node interpreter
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16
+      - name: Cache Node packages
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: node-16_${{ runner.os }}_npm-${{ hashFiles('node_modules') }}
+      - name: Install Node packages
+        run: npm install
+      - name: Check format of configuration files
+        run: npm run lint
+
+  test:
+    name: Run test suite
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code repository
+        uses: actions/checkout@v2
+      - name: Install Node interpreter
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16
+      - name: Cache Node packages
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: node-16_${{ runner.os }}_npm-${{ hashFiles('node_modules') }}
+      - name: Install Node packages
+        run: npm install
+      - name: Run unit tests
+        run: npm run test:unit
+      - name: Run end to end tests
+        env:
+          CYPRESS_baseUrl: http://localhost:8080/
+        uses: cypress-io/github-action@v2
+        with:
+          start: npm run serve
+          wait-on: http://localhost:8080/

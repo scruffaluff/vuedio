@@ -1,0 +1,37 @@
+# GitHub Actions workflow file.
+#
+# For more information, visit
+# https://docs.github.com/actions/learn-github-actions.
+
+name: release
+
+# Make workflow run only for pushed SemVer compatible tags.
+on:
+  push:
+    tags:
+      - "v?[0-9]+.[0-9]+.[0-9]+"
+
+jobs:
+  release:
+    name: Get Git tag and make GitHub release
+    runs-on: ubuntu-latest
+    outputs:
+      tag: ${{ steps.extract_tag.outputs.tag }}
+      upload_url: ${{ steps.create_release.outputs.upload_url }}
+    steps:
+      - name: Extract Git tag
+        id: extract_tag
+        shell: bash
+        run: echo "##[set-output name=tag;]$(echo ${GITHUB_REF#refs/tags/})"
+      - name: Create GitHub release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Vuedio ${{ steps.extract_tag.outputs.tag }}
+          body: >-
+            See the
+            [changelog](https://github.com/wolfgangwazzlestrauss/vuedio/blob/${{
+            steps.extract_tag.outputs.tag }}/CHANGELOG.md) for more information.

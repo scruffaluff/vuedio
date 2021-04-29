@@ -1,0 +1,38 @@
+# GitHub Actions workflow file.
+#
+# For more information, visit
+# https://docs.github.com/actions/learn-github-actions.
+
+name: pages
+
+# Make workflow run only for pushes to the master branch.
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  docs:
+    name: Build and publish documentation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code repository
+        uses: actions/checkout@v2
+      - name: Install Node interpreter
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16
+      - name: Cache Node packages
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: node-16_${{ runner.os }}_npm-${{ hashFiles('node_modules') }}
+      - name: Install Node packages
+        run: npm install
+      - name: Build documentation
+        run: npm run build
+      - name: Publish documentation
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: dist

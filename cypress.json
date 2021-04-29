@@ -1,0 +1,6 @@
+{
+  "fixturesFolder": false,
+  "integrationFolder": "tests/e2e/specs",
+  "pluginsFile": false,
+  "supportFile": false
+}
