@@ -10,17 +10,17 @@ describe("NoteList.vue", () => {
     vuetify = new Vuetify();
   });
 
-  it("Changes color when clicked", () => {
+  it("Changes color when clicked", async () => {
     const wrapper = mount(NoteList, {
       localVue,
       vuetify,
       propsData: { name: "Synth" },
     });
 
-    const card = wrapper.find("div.v-card");
+    const card = wrapper.find("button.v-btn");
     expect(card.classes()).toContain("lighten-4");
 
-    card.trigger("click");
+    await card.trigger("click");
     expect(card.classes()).not.toContain("lighten-4");
   });
 

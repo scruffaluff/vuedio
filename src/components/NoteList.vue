@@ -8,13 +8,13 @@
       </v-card>
     </v-col>
     <v-col :key="note.index" v-for="note of notes">
-      <v-card
+      <v-btn
         class="mr-1 primary"
         height="32"
         hover
         :class="{ 'lighten-4': !note.active }"
         @click="note.active = !note.active"
-      ></v-card>
+      ></v-btn>
     </v-col>
   </v-row>
 </template>
