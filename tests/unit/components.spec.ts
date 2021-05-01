@@ -62,7 +62,8 @@ describe("ControlBar", () => {
     });
 
     wrapper.vm.$data.volume = 20.0;
-    // @ts-expect-error volumeIcon does exist as a computed property.
+    // eslint-disable-next-line
+    // @ts-ignore volumeIcon does exist as a computed property.
     expect(wrapper.vm.volumeIcon).toBe("mdi-volume-low");
   });
 });

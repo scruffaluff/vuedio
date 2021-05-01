@@ -6,12 +6,13 @@ module.exports = {
   env: {
     node: true,
   },
+  // The order of the extends plugins affects linter errors.
   extends: [
+    "plugin:vue/essential",
+    "eslint:recommended",
+    "@vue/typescript/recommended",
     "@vue/prettier",
     "@vue/prettier/@typescript-eslint",
-    "@vue/typescript/recommended",
-    "eslint:recommended",
-    "plugin:vue/essential",
   ],
   overrides: [
     {
