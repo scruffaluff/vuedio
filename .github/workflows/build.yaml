@@ -38,7 +38,7 @@ jobs:
       - name: Install Node packages
         run: npm install
       - name: Check format of configuration files
-        run: npm run lint
+        run: npm run lint:check
 
   test:
     name: Run test suite
@@ -65,5 +65,5 @@ jobs:
           CYPRESS_baseUrl: http://localhost:8080/
         uses: cypress-io/github-action@v2
         with:
-          start: npm run serve
+          start: npm run vue:serve
           wait-on: http://localhost:8080/

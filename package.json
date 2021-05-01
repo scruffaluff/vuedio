@@ -3,11 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "test:unit": "vue-cli-service test:unit",
+    "doc:build": "npx typedoc",
+    "lint:check": "vue-cli-service lint --no-fix --max-errors 0 --max-warnings 0",
+    "lint:fix": "vue-cli-service lint",
     "test:e2e": "vue-cli-service test:e2e --headless",
-    "lint": "vue-cli-service lint"
+    "test:unit": "vue-cli-service test:unit",
+    "vue:build": "vue-cli-service build",
+    "vue:serve": "vue-cli-service serve"
   },
   "dependencies": {
     "core-js": "^3.6.5",
@@ -37,6 +39,7 @@
     "prettier": "^2.2.1",
     "sass": "^1.32.0",
     "sass-loader": "^10.0.0",
+    "typedoc": "^0.20.36",
     "typescript": "^3.9.7",
     "vue-cli-plugin-vuetify": "~2.4.0",
     "vue-template-compiler": "^2.6.11",

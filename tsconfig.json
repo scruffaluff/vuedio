@@ -24,5 +24,9 @@
     "src/**/*.vue",
     "tests/**/*.ts",
     "tests/**/*.tsx"
-  ]
+  ],
+  "typedocOptions": {
+    "entryPoints": ["src/main.ts"],
+    "out": "docs"
+  }
 }
