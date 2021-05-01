@@ -5,6 +5,7 @@
 .DS_Store
 .vscode
 *.mp4
+coverage/
 cypress/
 dist/
 node_modules/

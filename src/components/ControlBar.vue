@@ -8,7 +8,7 @@
           </v-icon>
         </v-btn>
       </v-col>
-      <v-col cols="1"> 120 </v-col>
+      <v-col cols="1">120</v-col>
       <v-col cols="4">
         <v-slider
           hint="Volume"

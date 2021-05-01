@@ -3,6 +3,8 @@
 # For more information, visit https://prettier.io/docs/en/ignore.html.
 
 .git/
+coverage/
+cypress/
 cypress/
 dist/
 node_modules/

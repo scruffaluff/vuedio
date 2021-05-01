@@ -1,19 +1,20 @@
 <template>
-  <v-row no-gutters>
+  <v-row justify="center" class="my-2" no-gutters>
     <v-col cols="2">
       <v-card
-        class="font-weight-bold mr-4 pl-4 py-1 secondary lighten-4 text-uppercase"
+        class="font-weight-bold ml-1 mr-4 pl-4 py-1 secondary lighten-4 text-uppercase"
       >
         {{ name }}
       </v-card>
     </v-col>
     <v-col :key="note.index" v-for="note of notes">
       <v-btn
-        class="mr-1 primary"
-        height="32"
-        hover
         :class="{ 'lighten-4': !note.active }"
         @click="note.active = !note.active"
+        class="mr-1 note-button primary"
+        height="32"
+        hover
+        width="32"
       ></v-btn>
     </v-col>
   </v-row>
@@ -30,3 +31,9 @@ export default Vue.extend({
   props: ["name"],
 });
 </script>
+
+<style>
+.note-button {
+  min-width: 0 !important;
+}
+</style>

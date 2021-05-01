@@ -1,8 +1,9 @@
 import { createLocalVue, mount, shallowMount } from "@vue/test-utils";
+import ControlBar from "@/components/ControlBar.vue";
 import NoteList from "@/components/NoteList.vue";
 import Vuetify from "vuetify";
 
-describe("NoteList.vue", () => {
+describe("NoteList", () => {
   const localVue = createLocalVue();
   let vuetify: Vuetify;
 
@@ -33,5 +34,35 @@ describe("NoteList.vue", () => {
     });
 
     expect(wrapper.text()).toMatch(name);
+  });
+});
+
+describe("ControlBar", () => {
+  const localVue = createLocalVue();
+  let vuetify: Vuetify;
+
+  // Vuetify's slider requires a parent element with attribute data-app="true".
+  // Solution is taken from https://github.com/vuetifyjs/vuetify/issues/1210.
+  const elem = document.createElement("div");
+  elem.setAttribute("data-app", "true");
+  document.body.appendChild(elem);
+
+  beforeEach(() => {
+    vuetify = new Vuetify();
+  });
+
+  it("Changes volume icon with volume", async () => {
+    const wrapper = mount(ControlBar, {
+      localVue,
+      vuetify,
+      propsData: {
+        attachTo: "data-app",
+        name: "Synth",
+      },
+    });
+
+    wrapper.vm.$data.volume = 20.0;
+    // @ts-expect-error volumeIcon does exist as a computed property.
+    expect(wrapper.vm.volumeIcon).toBe("mdi-volume-low");
   });
 });

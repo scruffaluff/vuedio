@@ -1,7 +1,7 @@
 <template>
   <div class="mt-12">
     <ControlBar></ControlBar>
-    <v-container class="mx-4">
+    <v-container class="note-list-container">
       <NoteList name="Kick"></NoteList>
       <NoteList name="Snare"></NoteList>
       <NoteList name="Hi-Hat"></NoteList>
@@ -22,3 +22,9 @@ export default Vue.extend({
   },
 });
 </script>
+
+<style>
+.note-list-container {
+  max-width: 920px;
+}
+</style>
