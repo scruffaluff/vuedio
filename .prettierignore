@@ -6,6 +6,7 @@
 coverage/
 cypress/
 cypress/
+data/
 dist/
 docs/
 node_modules/

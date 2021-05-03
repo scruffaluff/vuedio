@@ -2,9 +2,11 @@
   <div class="mt-12">
     <ControlBar></ControlBar>
     <v-container class="note-list-container">
-      <NoteList name="Kick"></NoteList>
-      <NoteList name="Snare"></NoteList>
-      <NoteList name="Hi-Hat"></NoteList>
+      <NoteList
+        :key="track.name"
+        :track="track"
+        v-for="track in $store.state.tracks"
+      />
     </v-container>
   </div>
 </template>

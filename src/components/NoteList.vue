@@ -4,13 +4,18 @@
       <v-card
         class="font-weight-bold ml-1 mr-4 pl-4 py-1 secondary lighten-4 text-uppercase"
       >
-        {{ name }}
+        {{ track.name }}
       </v-card>
     </v-col>
-    <v-col :key="note.index" v-for="note of notes">
+    <v-col :key="note.index" v-for="note of track.notes">
       <v-btn
         :class="{ 'lighten-4': !note.active }"
-        @click="note.active = !note.active"
+        @click="
+          $store.commit('toggleNoteActive', {
+            trackName: track.name,
+            noteIndex: note.index,
+          })
+        "
         class="mr-1 note-button primary"
         height="32"
         hover
@@ -25,10 +30,7 @@ import Vue from "vue";
 
 export default Vue.extend({
   name: "NoteList",
-  data: () => ({
-    notes: Array.from({ length: 16 }, (_, index) => ({ active: false, index })),
-  }),
-  props: ["name"],
+  props: ["track"],
 });
 </script>
 

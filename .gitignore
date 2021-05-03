@@ -7,6 +7,7 @@
 *.mp4
 coverage/
 cypress/
+data/
 dist/
 docs/
 node_modules/
