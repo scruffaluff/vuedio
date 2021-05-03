@@ -1,10 +1,13 @@
 import { createLocalVue, mount, shallowMount } from "@vue/test-utils";
+import Vuetify from "vuetify";
+import Vuex from "vuex";
 import ControlBar from "@/components/ControlBar.vue";
 import NoteList from "@/components/NoteList.vue";
-import Vuetify from "vuetify";
+import store from "@/store";
 
 describe("NoteList", () => {
   const localVue = createLocalVue();
+  localVue.use(Vuex);
   let vuetify: Vuetify;
 
   beforeEach(() => {
@@ -14,8 +17,9 @@ describe("NoteList", () => {
   it("Changes color when clicked", async () => {
     const wrapper = mount(NoteList, {
       localVue,
+      propsData: { track: store.state.tracks[0] },
+      store,
       vuetify,
-      propsData: { name: "Synth" },
     });
 
     const card = wrapper.find("button.v-btn");
@@ -26,11 +30,12 @@ describe("NoteList", () => {
   });
 
   it("Renders name when passed", () => {
-    const name = "Synth";
+    const name = "Kick";
     const wrapper = shallowMount(NoteList, {
       localVue,
+      propsData: { track: store.state.tracks[0] },
+      store,
       vuetify,
-      propsData: { name },
     });
 
     expect(wrapper.text()).toMatch(name);
@@ -54,14 +59,11 @@ describe("ControlBar", () => {
   it("Changes volume icon with volume", async () => {
     const wrapper = mount(ControlBar, {
       localVue,
+      store,
       vuetify,
-      propsData: {
-        attachTo: "data-app",
-        name: "Synth",
-      },
     });
 
-    wrapper.vm.$data.volume = 20.0;
+    wrapper.vm.$store.state.volume = 20.0;
     // Cannot use ts-expect-error since Cypress compiles correctly.
     // eslint-disable-next-line
     // @ts-ignore volumeIcon does exist as a computed property, but Jest
