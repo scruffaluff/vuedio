@@ -5,10 +5,11 @@
 
 name: pages
 
-# Make workflow run only for pushes to the master branch.
+# Trigger workflow on push to the main and master branches.
 on:
   push:
     branches:
+      - main
       - master
 
 jobs:

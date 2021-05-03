@@ -64,7 +64,7 @@ describe("ControlBar", () => {
     wrapper.vm.$data.volume = 20.0;
     // Cannot use ts-expect-error since Cypress compiles correctly.
     // eslint-disable-next-line
-    // @ts-ignore volumeIcon does exist as a computed property, but Jest 
+    // @ts-ignore volumeIcon does exist as a computed property, but Jest
     // believes otherwise.
     expect(wrapper.vm.volumeIcon).toBe("mdi-volume-low");
   });
