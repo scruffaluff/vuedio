@@ -7,7 +7,6 @@
 *.mp4
 /dist/
 /docs/
-/public/data/
 /tests/e2e/screenshots/
 /tests/e2e/videos/
 /tmp/
