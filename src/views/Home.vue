@@ -22,6 +22,9 @@ export default Vue.extend({
     ControlBar,
     NoteList,
   },
+  async mounted() {
+    await this.$store.dispatch("loadSamples");
+  },
 });
 </script>
 

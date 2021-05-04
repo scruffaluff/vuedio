@@ -3,7 +3,7 @@
 // For more information, visit https://jestjs.io/docs/configuration.
 
 module.exports = {
-  collectCoverage: true,
+  collectCoverage: false,
   collectCoverageFrom: [
     "**/*.{ts,vue}",
     "!**/node_modules/**",

@@ -4,7 +4,7 @@
       <v-col cols="1">
         <v-btn>
           <v-icon @click="$store.commit('togglePlaying')">
-            {{ $store.state.playing ? "mdi-pause" : "mdi-play" }}
+            {{ $store.state.player.loop ? "mdi-pause" : "mdi-play" }}
           </v-icon>
         </v-btn>
       </v-col>

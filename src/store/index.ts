@@ -7,7 +7,13 @@ Vue.use(Vuex);
 const player = new Player(16, 1 / 16, 0.075, 120.0, 0.025);
 
 export default new Vuex.Store({
-  actions: {},
+  actions: {
+    async loadSamples({ state }) {
+      await Promise.all(
+        state.tracks.map((track) => track.loadSample(state.audioContext))
+      );
+    },
+  },
 
   modules: {},
 
@@ -20,18 +26,24 @@ export default new Vuex.Store({
       track.notes[noteIndex].active = !track.notes[noteIndex].active;
     },
     togglePlaying(state): void {
-      state.playing = !state.playing;
+      state.player.loop = !state.player.loop;
+
+      if (state.player.loop) {
+        state.audioContext.resume();
+        state.player.timer = state.audioContext.currentTime;
+        state.player.playTick(state.audioContext, state.tracks);
+      }
     },
   },
 
   state: {
+    audioContext: new AudioContext(),
     player: player,
-    playing: false,
     tracks: [
-      new SampleTrack("Kick", "samples/kick.wav", player.length),
-      new SampleTrack("Snare", "samples/snare.wav", player.length),
-      new SampleTrack("Mid-Tom", "samples/mid_tom.wav", player.length),
-      new SampleTrack("Hi-Hat", "samples/closed_hihat.wav", player.length),
+      new SampleTrack("Kick", "data/kick.wav", player.length),
+      new SampleTrack("Snare", "data/snare.wav", player.length),
+      new SampleTrack("Mid-Tom", "data/tom.wav", player.length),
+      new SampleTrack("Hi-Hat", "data/hi_hat.wav", player.length),
     ],
     volume: 50,
   },
