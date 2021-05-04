@@ -4,6 +4,16 @@ import Player from "@/audio/play";
 import { SampleTrack } from "@/audio/track";
 
 Vue.use(Vuex);
+
+// Node does not have AudioContext support. Following check if a temporary
+// workaround until unit tests become more modular.
+let audioContext;
+if (typeof AudioContext === "undefined") {
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  audioContext = { currentTime: 0.0, resume: () => {} } as AudioContext;
+} else {
+  audioContext = new AudioContext();
+}
 const player = new Player(16, 1 / 16, 0.075, 120.0, 0.025);
 
 export default new Vuex.Store({
@@ -29,6 +39,8 @@ export default new Vuex.Store({
       state.player.loop = !state.player.loop;
 
       if (state.player.loop) {
+        // Google Chrome requires an audio context to start or resume after a
+        // user event. For more information, visit https://goo.gl/7K7WLu.
         state.audioContext.resume();
         state.player.timer = state.audioContext.currentTime;
         state.player.playTick(state.audioContext, state.tracks);
@@ -37,8 +49,8 @@ export default new Vuex.Store({
   },
 
   state: {
-    audioContext: new AudioContext(),
-    player: player,
+    audioContext,
+    player,
     tracks: [
       new SampleTrack("Kick", "data/kick.wav", player.length),
       new SampleTrack("Snare", "data/snare.wav", player.length),
