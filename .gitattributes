@@ -1,1 +1,5 @@
+# Git attributes file for specializing source control operations by path name.
+#
+# For more information, visit https://git-scm.com/docs/gitattributes.
+
 /public/data filter=lfs diff=lfs merge=lfs -text

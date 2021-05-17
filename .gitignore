@@ -5,11 +5,11 @@
 .DS_Store
 .vscode
 *.mp4
+/.env
+/cypress/screenshots/
+/cypress/videos/
 /dist/
 /docs/
-/tests/e2e/screenshots/
-/tests/e2e/videos/
 /tmp/
 coverage/
-cypress/
 node_modules/

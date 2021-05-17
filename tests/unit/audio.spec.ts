@@ -16,7 +16,7 @@ class MockTrack implements Track {
     this.record = [];
   }
 
-  play(context: AudioContext, index: number, time: number) {
+  play(_context: AudioContext, index: number, time: number) {
     this.record.push([index, time]);
   }
 }

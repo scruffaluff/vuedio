@@ -2,7 +2,16 @@
   <v-row justify="center" class="my-2" no-gutters>
     <v-col cols="2">
       <v-card
-        class="font-weight-bold ml-1 mr-4 pl-4 py-1 secondary lighten-4 text-uppercase"
+        class="
+          font-weight-bold
+          ml-1
+          mr-4
+          pl-4
+          py-1
+          secondary
+          lighten-4
+          text-uppercase
+        "
       >
         {{ track.name }}
       </v-card>

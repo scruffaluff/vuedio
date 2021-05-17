@@ -6,10 +6,9 @@
 /dist/
 /docs/
 /public/data/
-/tests/e2e/screenshots/
-/tests/e2e/videos/
+/cypress/screenshots/
+/cypress/videos/
 /tmp/
 coverage/
-cypress/
 node_modules/
 package-lock.json

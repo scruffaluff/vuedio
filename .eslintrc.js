@@ -17,21 +17,34 @@ module.exports = {
   overrides: [
     {
       env: {
+        "cypress/globals": true,
+        mocha: true,
+      },
+      files: ["cypress/**/*.{j,t}s?(x)"],
+    },
+    {
+      env: {
         jest: true,
       },
-      files: [
-        "**/__tests__/*.{j,t}s?(x)",
-        "**/tests/unit/**/*.spec.{j,t}s?(x)",
-      ],
+      files: ["tests/**/*.{j,t}s?(x)"],
     },
   ],
   parserOptions: {
     ecmaVersion: 2020,
   },
-  plugins: ["prettier"],
+  plugins: ["cypress", "prettier"],
   root: true,
   rules: {
     "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
     "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off",
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      {
+        args: "all",
+        argsIgnorePattern: "^_",
+        ignoreRestSiblings: false,
+        vars: "all",
+      },
+    ],
   },
 };
