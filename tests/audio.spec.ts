@@ -1,7 +1,7 @@
-import { durationToSeconds } from "@/audio/util";
+import Note from "@/audio/note";
 import Player from "@/audio/play";
 import { Track } from "@/audio/track";
-import Note from "@/audio/note";
+import { durationToSeconds } from "@/audio/util";
 
 class MockTrack implements Track {
   name: string;
