@@ -22,14 +22,14 @@ class MockTrack implements Track {
 }
 
 describe("Util", () => {
-  test("Sanity check for durationToSeconds", () => {
+  it("Sanity check for durationToSeconds", () => {
     const actual = durationToSeconds(60.0, 1);
     expect(actual).toBe(4.0);
   });
 });
 
 describe("Play", () => {
-  test("Check timing for playing tracks", () => {
+  it("Check timing for playing tracks", () => {
     const context = { currentTime: 0.1 } as AudioContext;
     const track = new MockTrack();
 

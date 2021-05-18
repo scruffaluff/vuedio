@@ -1,5 +1,10 @@
 <template>
-  <v-row justify="center" class="my-2" no-gutters>
+  <v-row
+    class="my-2"
+    data-testid="note-list-component"
+    justify="center"
+    no-gutters
+  >
     <v-col cols="2">
       <v-card
         class="
@@ -12,6 +17,7 @@
           lighten-4
           text-uppercase
         "
+        data-testid="note-list-name"
       >
         {{ track.name }}
       </v-card>
@@ -26,6 +32,7 @@
           })
         "
         class="mr-1 note-button primary"
+        data-testid="note-list-button"
         height="32"
         hover
         width="32"

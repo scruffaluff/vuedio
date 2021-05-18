@@ -1,9 +1,12 @@
 <template>
-  <v-container>
+  <v-container data-testid="contol-bar-component">
     <v-row justify="center">
       <v-col cols="1">
         <v-btn>
-          <v-icon @click="$store.commit('togglePlaying')">
+          <v-icon
+            @click="$store.commit('togglePlaying')"
+            data-testid="contol-bar-play-button"
+          >
             {{ $store.state.player.loop ? "mdi-pause" : "mdi-play" }}
           </v-icon>
         </v-btn>
@@ -11,13 +14,14 @@
       <v-col cols="1">120</v-col>
       <v-col cols="4">
         <v-slider
+          :append-icon="volumeIcon"
+          @click:append="toggleMute"
+          data-testid="contol-bar-volume-slider"
           hint="Volume"
           max="100"
           min="0"
-          :append-icon="volumeIcon"
           thumb-label
           v-model="$store.state.volume"
-          @click:append="toggleMute"
         >
         </v-slider>
       </v-col>
