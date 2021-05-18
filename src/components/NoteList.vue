@@ -1,8 +1,23 @@
 <template>
-  <v-row justify="center" class="my-2" no-gutters>
+  <v-row
+    class="my-2"
+    data-testid="note-list-component"
+    justify="center"
+    no-gutters
+  >
     <v-col cols="2">
       <v-card
-        class="font-weight-bold ml-1 mr-4 pl-4 py-1 secondary lighten-4 text-uppercase"
+        class="
+          font-weight-bold
+          ml-1
+          mr-4
+          pl-4
+          py-1
+          secondary
+          lighten-4
+          text-uppercase
+        "
+        data-testid="note-list-name"
       >
         {{ track.name }}
       </v-card>
@@ -17,6 +32,7 @@
           })
         "
         class="mr-1 note-button primary"
+        data-testid="note-list-button"
         height="32"
         hover
         width="32"

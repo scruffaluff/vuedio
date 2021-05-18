@@ -1,6 +1,7 @@
 {
-  "fixturesFolder": false,
-  "integrationFolder": "tests/e2e/specs",
-  "pluginsFile": false,
-  "supportFile": false
+  "baseUrl": "http://localhost:8080/",
+  "fixturesFolder": "cypress/fixtures",
+  "integrationFolder": "cypress/integration",
+  "pluginsFile": "cypress/plugins/index.ts",
+  "supportFile": "cypress/support/index.ts"
 }
