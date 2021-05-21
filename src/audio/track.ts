@@ -33,12 +33,16 @@ export class SampleTrack implements Track {
     this.buffer = await getSample(context, this.filePath);
   }
 
+  note(context: AudioContext, time: number): void {
+    const source = context.createBufferSource();
+    source.buffer = this.buffer;
+    source.connect(context.destination);
+    source.start(time);
+  }
+
   play(context: AudioContext, index: number, time: number): void {
     if (this.notes[index].active) {
-      const source = context.createBufferSource();
-      source.buffer = this.buffer;
-      source.connect(context.destination);
-      source.start(time);
+      this.note(context, time);
     }
   }
 }

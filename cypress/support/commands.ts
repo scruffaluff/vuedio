@@ -7,8 +7,6 @@ Cypress.Commands.add(
     const sliderWidth = subject.width();
     const sliderHeight = subject.height();
 
-    console.log(subject);
-
     const pixelsFromLeft = percentFromLeft * sliderWidth;
     const pixelsFromTop = 0.5 * sliderHeight;
 

@@ -1,3 +1,5 @@
+import Sinon from "cypress/types/sinon";
+
 describe("ControlBar", () => {
   it("Click changes play button icon", () => {
     cy.visit("/");
@@ -45,5 +47,22 @@ describe("NoteList", () => {
       .should("have.class", "lighten-4")
       .click()
       .should("not.have.class", "lighten-4");
+  });
+
+  it("Click calls AudioContext", () => {
+    let spy: Cypress.Agent<Sinon.SinonSpy>;
+
+    cy.visit("/");
+    cy.window()
+      .its("app")
+      .then((app) => {
+        spy = cy.spy(app.$store.state.audioContext, "createBufferSource");
+      });
+
+    cy.get("[data-testid='note-list-component']")
+      .first()
+      .find("[data-testid='note-list-name']")
+      .click()
+      .then(() => expect(spy).to.be.calledOnce);
   });
 });

@@ -6,6 +6,7 @@
 .vscode
 *.mp4
 /.env
+/cypress/fixtures/
 /cypress/screenshots/
 /cypress/videos/
 /dist/

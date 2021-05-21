@@ -4,16 +4,6 @@ import Player from "@/audio/play";
 import { SampleTrack } from "@/audio/track";
 
 Vue.use(Vuex);
-
-// Node does not have AudioContext support. Following check if a temporary
-// workaround until unit tests become more modular.
-let audioContext;
-if (typeof AudioContext === "undefined") {
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  audioContext = { currentTime: 0.0, resume: () => {} } as AudioContext;
-} else {
-  audioContext = new AudioContext();
-}
 const player = new Player(16, 1 / 16, 0.075, 120.0, 0.025);
 
 export default new Vuex.Store({
@@ -30,6 +20,10 @@ export default new Vuex.Store({
   mutations: {
     setVolume(state, value: number): void {
       state.volume = value;
+    },
+    playNote(state, trackName: string): void {
+      const track = state.tracks.filter((track) => track.name == trackName)[0];
+      track.note(state.audioContext, 0.0);
     },
     toggleNoteActive(state, { trackName, noteIndex }): void {
       const track = state.tracks.filter((track) => track.name == trackName)[0];
@@ -49,7 +43,7 @@ export default new Vuex.Store({
   },
 
   state: {
-    audioContext,
+    audioContext: new AudioContext(),
     player,
     tracks: [
       new SampleTrack("Kick", "data/kick.wav", player.length),
