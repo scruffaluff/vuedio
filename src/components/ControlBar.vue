@@ -15,13 +15,14 @@
       <v-col cols="4">
         <v-slider
           :append-icon="volumeIcon"
+          :value="volume"
           @click:append="toggleMute"
+          @input="setVolume"
           data-testid="contol-bar-volume-slider"
           hint="Volume"
           max="100"
           min="0"
           thumb-label
-          v-model="$store.state.volume"
         >
         </v-slider>
       </v-col>
@@ -31,27 +32,32 @@
 
 <script lang="ts">
 import Vue from "vue";
+import { mapState } from "vuex";
 
 export default Vue.extend({
   computed: {
     volumeIcon(): string {
-      if (this.$store.state.volume === 0) {
+      if (this.volume === 0) {
         return "mdi-volume-mute";
-      } else if (this.$store.state.volume < 33) {
+      } else if (this.volume < 33) {
         return "mdi-volume-low";
-      } else if (this.$store.state.volume < 66) {
+      } else if (this.volume < 66) {
         return "mdi-volume-medium";
       } else {
         return "mdi-volume-high";
       }
     },
+    ...mapState(["volume"]),
   },
   data: () => ({
     volumePrevious: 0,
   }),
   methods: {
-    toggleMute() {
-      const currentVolume = this.$store.state.volume;
+    setVolume(value: number): void {
+      this.$store.commit("setVolume", value);
+    },
+    toggleMute(): void {
+      const currentVolume = this.volume;
       this.$store.commit("setVolume", this.volumePrevious);
       this.volumePrevious = currentVolume;
     },

@@ -27,6 +27,14 @@ describe("ControlBar", () => {
       .find("button.v-icon")
       .should("have.class", "mdi-volume-low");
   });
+
+  it("Slide changes store volume", () => {
+    cy.visit("/");
+
+    cy.window().its("app.$store.state.volume").should("eq", 50);
+    cy.get("div.v-slider").first().clickVSlider(0.25);
+    cy.window().its("app.$store.state.volume").should("eq", 25);
+  });
 });
 
 describe("NoteList", () => {

@@ -4,6 +4,10 @@ import Player from "@/audio/play";
 import { SampleTrack } from "@/audio/track";
 
 Vue.use(Vuex);
+
+const audioContext = new AudioContext();
+const gainNode = audioContext.createGain();
+gainNode.gain.value = 0.5;
 const player = new Player(16, 1 / 16, 0.075, 120.0, 0.025);
 
 export default new Vuex.Store({
@@ -20,10 +24,11 @@ export default new Vuex.Store({
   mutations: {
     setVolume(state, value: number): void {
       state.volume = value;
+      state.gainNode.gain.value = value / 100.0;
     },
     playNote(state, trackName: string): void {
       const track = state.tracks.filter((track) => track.name == trackName)[0];
-      track.note(state.audioContext, 0.0);
+      track.note(state.audioContext, state.gainNode, 0.0);
     },
     toggleNoteActive(state, { trackName, noteIndex }): void {
       const track = state.tracks.filter((track) => track.name == trackName)[0];
@@ -36,14 +41,16 @@ export default new Vuex.Store({
         // Google Chrome requires an audio context to start or resume after a
         // user event. For more information, visit https://goo.gl/7K7WLu.
         state.audioContext.resume();
+        state.gainNode.connect(state.audioContext.destination);
         state.player.timer = state.audioContext.currentTime;
-        state.player.playTick(state.audioContext, state.tracks);
+        state.player.playTick(state.audioContext, state.gainNode, state.tracks);
       }
     },
   },
 
   state: {
-    audioContext: new AudioContext(),
+    audioContext,
+    gainNode,
     player,
     tracks: [
       new SampleTrack("Kick", "data/kick.wav", player.length),
@@ -51,6 +58,6 @@ export default new Vuex.Store({
       new SampleTrack("Mid-Tom", "data/tom.wav", player.length),
       new SampleTrack("Hi-Hat", "data/hi_hat.wav", player.length),
     ],
-    volume: 50,
+    volume: 100 * gainNode.gain.value,
   },
 });

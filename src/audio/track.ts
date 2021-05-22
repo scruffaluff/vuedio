@@ -4,7 +4,12 @@ import { getSample } from "@/audio/util";
 export interface Track {
   name: string;
   notes: Array<Note>;
-  play(context: AudioContext, index: number, time: number): void;
+  play(
+    context: AudioContext,
+    destination: AudioNode,
+    index: number,
+    time: number
+  ): void;
 }
 
 export class SampleTrack implements Track {
@@ -33,16 +38,21 @@ export class SampleTrack implements Track {
     this.buffer = await getSample(context, this.filePath);
   }
 
-  note(context: AudioContext, time: number): void {
+  note(context: AudioContext, destination: AudioNode, time: number): void {
     const source = context.createBufferSource();
     source.buffer = this.buffer;
-    source.connect(context.destination);
+    source.connect(destination);
     source.start(time);
   }
 
-  play(context: AudioContext, index: number, time: number): void {
+  play(
+    context: AudioContext,
+    destination: AudioNode,
+    index: number,
+    time: number
+  ): void {
     if (this.notes[index].active) {
-      this.note(context, time);
+      this.note(context, destination, time);
     }
   }
 }
