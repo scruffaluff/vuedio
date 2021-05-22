@@ -1,9 +1,10 @@
-import { Chainable } from "cypress";
-
 Cypress.Commands.add(
   "clickVSlider",
   { prevSubject: true },
-  (subject: Chainable<JQuery<HTMLElement>>, percentFromLeft: number) => {
+  (
+    subject: Cypress.Chainable<JQuery<HTMLElement>>,
+    percentFromLeft: number
+  ) => {
     const sliderWidth = subject.width();
     const sliderHeight = subject.height();
 

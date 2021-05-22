@@ -5,6 +5,5 @@
 module.exports = {
   collectCoverage: false,
   preset: "@vue/cli-plugin-unit-jest/presets/typescript-and-babel",
-  setupFiles: ["./tests/setup.ts"],
-  testMatch: ["**/tests/**/*.spec.[jt]s?(x)"],
+  testMatch: ["**/tests/**/*.spec.ts"],
 };

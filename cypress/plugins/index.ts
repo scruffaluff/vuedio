@@ -1,8 +1,10 @@
-import { PluginEvents, PluginConfigOptions } from "cypress";
 import dotenv from "dotenv";
 
 dotenv.config();
 
-module.exports = function (_on: PluginEvents, _config: PluginConfigOptions) {
+module.exports = function (
+  _on: Cypress.PluginEvents,
+  _config: Cypress.PluginConfigOptions
+): void {
   // configure plugins here
 };
