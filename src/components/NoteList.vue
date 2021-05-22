@@ -7,6 +7,7 @@
   >
     <v-col cols="2">
       <v-card
+        @click="$store.commit('playNote', track.name)"
         class="
           font-weight-bold
           ml-1

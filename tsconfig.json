@@ -14,8 +14,7 @@
     "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
-    "target": "esnext",
-    "types": ["jest", "webpack-env"]
+    "target": "esnext"
   },
   "exclude": ["node_modules"],
   "include": [
