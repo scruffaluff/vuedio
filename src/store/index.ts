@@ -22,6 +22,10 @@ export default new Vuex.Store({
   modules: {},
 
   mutations: {
+    setTempo(state, value: number): void {
+      state.tempo = value;
+      state.player.tempo = value;
+    },
     setVolume(state, value: number): void {
       state.volume = value;
       state.gainNode.gain.value = value / 100.0;
@@ -52,6 +56,7 @@ export default new Vuex.Store({
     audioContext,
     gainNode,
     player,
+    tempo: 120,
     tracks: [
       new SampleTrack("Kick", "data/kick.wav", player.length),
       new SampleTrack("Snare", "data/snare.wav", player.length),
