@@ -11,13 +11,16 @@
           </v-icon>
         </v-btn>
       </v-col>
-      <v-col cols="1">
+      <v-col cols="2">
         <v-text-field
+          :rules="rules"
           :value="tempo"
           @input="setTempo"
           data-testid="contol-bar-tempo"
-          height="1"
+          dense
+          hide-details="auto"
           solo-inverted
+          suffix="bpm"
           type="number"
         ></v-text-field>
       </v-col>
@@ -59,6 +62,12 @@ export default Vue.extend({
     ...mapState(["tempo", "volume"]),
   },
   data: () => ({
+    rules: [
+      (text: string): boolean | string =>
+        !isNaN(Number(text)) || "Must be a number",
+      (text: string): boolean | string =>
+        Number(text) > 0 || "Must be positive",
+    ],
     volumePrevious: 0,
   }),
   methods: {
