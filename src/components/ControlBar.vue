@@ -11,17 +11,30 @@
           </v-icon>
         </v-btn>
       </v-col>
-      <v-col cols="1">120</v-col>
+      <v-col cols="2">
+        <v-text-field
+          :rules="rules"
+          :value="tempo"
+          @input="setTempo"
+          data-testid="contol-bar-tempo"
+          dense
+          hide-details="auto"
+          solo-inverted
+          suffix="bpm"
+          type="number"
+        ></v-text-field>
+      </v-col>
       <v-col cols="4">
         <v-slider
           :append-icon="volumeIcon"
+          :value="volume"
           @click:append="toggleMute"
+          @input="setVolume"
           data-testid="contol-bar-volume-slider"
           hint="Volume"
           max="100"
           min="0"
           thumb-label
-          v-model="$store.state.volume"
         >
         </v-slider>
       </v-col>
@@ -31,27 +44,41 @@
 
 <script lang="ts">
 import Vue from "vue";
+import { mapState } from "vuex";
 
 export default Vue.extend({
   computed: {
     volumeIcon(): string {
-      if (this.$store.state.volume === 0) {
+      if (this.volume === 0) {
         return "mdi-volume-mute";
-      } else if (this.$store.state.volume < 33) {
+      } else if (this.volume < 33) {
         return "mdi-volume-low";
-      } else if (this.$store.state.volume < 66) {
+      } else if (this.volume < 66) {
         return "mdi-volume-medium";
       } else {
         return "mdi-volume-high";
       }
     },
+    ...mapState(["tempo", "volume"]),
   },
   data: () => ({
+    rules: [
+      (text: string): boolean | string =>
+        !isNaN(Number(text)) || "Must be a number",
+      (text: string): boolean | string =>
+        Number(text) > 0 || "Must be positive",
+    ],
     volumePrevious: 0,
   }),
   methods: {
-    toggleMute() {
-      const currentVolume = this.$store.state.volume;
+    setTempo(value: string): void {
+      this.$store.commit("setTempo", Number(value));
+    },
+    setVolume(value: number): void {
+      this.$store.commit("setVolume", value);
+    },
+    toggleMute(): void {
+      const currentVolume = this.volume;
       this.$store.commit("setVolume", this.volumePrevious);
       this.volumePrevious = currentVolume;
     },

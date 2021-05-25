@@ -62,16 +62,25 @@ export default class Player {
    * @param context  Associated audio context.
    * @param tracks  Tracks to play.
    */
-  playTick(context: AudioContext, tracks: Array<Track>): void {
+  playTick(
+    context: AudioContext,
+    destination: AudioNode,
+    tracks: Array<Track>
+  ): void {
     const stepDuration = durationToSeconds(this.tempo, this.step);
     const lookaheadStop = context.currentTime + this.lookahead;
 
     while (this.next(stepDuration, lookaheadStop)) {
-      tracks.forEach((track) => track.play(context, this.index, this.timer));
+      tracks.forEach((track) =>
+        track.play(context, destination, this.index, this.timer)
+      );
     }
 
     if (this.loop) {
-      setTimeout(() => this.playTick(context, tracks), 1000 * this.tick);
+      setTimeout(
+        () => this.playTick(context, destination, tracks),
+        1000 * this.tick
+      );
     }
   }
 }

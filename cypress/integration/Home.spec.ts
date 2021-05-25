@@ -27,6 +27,23 @@ describe("ControlBar", () => {
       .find("button.v-icon")
       .should("have.class", "mdi-volume-low");
   });
+
+  it("Slide changes store volume", () => {
+    cy.visit("/");
+
+    cy.window().its("app.$store.state.volume").should("eq", 50);
+    cy.get("div.v-slider").first().clickVSlider(0.25);
+    cy.window().its("app.$store.state.volume").should("eq", 25);
+  });
+
+  it("Type changes store tempo", () => {
+    cy.visit("/");
+    cy.window().its("app.$store.state.tempo").should("eq", 120.0);
+
+    // Del removes trailing zero that appears from clearing the text.
+    cy.get("[data-testid='contol-bar-tempo']").clear().type("42{del}");
+    cy.window().its("app.$store.state.tempo").should("eq", 42.0);
+  });
 });
 
 describe("NoteList", () => {
