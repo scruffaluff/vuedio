@@ -4,7 +4,7 @@
       <v-col cols="1">
         <v-btn>
           <v-icon
-            @click="$store.commit('togglePlaying')"
+            @click="$store.dispatch('togglePlaying')"
             data-testid="contol-bar-play-button"
           >
             {{ $store.state.player.loop ? "mdi-pause" : "mdi-play" }}

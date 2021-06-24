@@ -1,13 +1,27 @@
 <template>
   <div class="mt-12">
     <ControlBar></ControlBar>
-    <v-container class="note-list-container">
+    <v-container class="container">
       <NoteList
         :key="track.name"
         :track="track"
         v-for="track in $store.state.tracks"
       />
     </v-container>
+    <v-snackbar v-model="$store.state.error">
+      {{ $store.state.errorMessage }}
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          @click="$store.commit('clearError')"
+          color="red"
+          data-testid="snackbar-error"
+          text
+          v-bind="attrs"
+        >
+          Ignore
+        </v-btn>
+      </template>
+    </v-snackbar>
   </div>
 </template>
 
@@ -28,8 +42,8 @@ export default Vue.extend({
 });
 </script>
 
-<style>
-.note-list-container {
+<style scoped>
+.container {
   max-width: 920px;
 }
 </style>

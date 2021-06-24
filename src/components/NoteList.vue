@@ -32,7 +32,7 @@
             noteIndex: note.index,
           })
         "
-        class="mr-1 note-button primary"
+        class="mr-1 note__button primary"
         data-testid="note-list-button"
         height="32"
         hover
@@ -51,8 +51,8 @@ export default Vue.extend({
 });
 </script>
 
-<style>
-.note-button {
+<style scoped>
+.note__button {
   min-width: 0 !important;
 }
 </style>

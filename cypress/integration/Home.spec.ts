@@ -83,3 +83,26 @@ describe("NoteList", () => {
       .then(() => expect(spy).to.be.calledOnce);
   });
 });
+
+describe("Snackbar", () => {
+  it("Is hidden initially", () => {
+    cy.visit("/");
+    cy.get("[data-testid='snackbar-error']").should("not.be.visible");
+  });
+
+  it("Displays error when playing with negative tempo", () => {
+    cy.visit("/");
+    cy.get("[data-testid='contol-bar-tempo']").clear().type("-42{del}");
+    cy.get("[data-testid='contol-bar-play-button']").click();
+
+    cy.get("[data-testid='snackbar-error']").should("be.visible");
+  });
+
+  it("Disappears when clicked", () => {
+    cy.visit("/");
+    cy.get("[data-testid='contol-bar-tempo']").clear().type("-42{del}");
+    cy.get("[data-testid='contol-bar-play-button']").click();
+
+    cy.get("[data-testid='snackbar-error']").click().should("not.be.visible");
+  });
+});

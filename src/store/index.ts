@@ -12,16 +12,31 @@ const player = new Player(16, 1 / 16, 0.075, 120.0, 0.025);
 
 export default new Vuex.Store({
   actions: {
-    async loadSamples({ state }) {
+    async loadSamples({ state }): Promise<void> {
       await Promise.all(
         state.tracks.map((track) => track.loadSample(state.audioContext))
       );
+    },
+    togglePlaying({ commit, state }): void {
+      if (!state.player.loop && state.tempo <= 0) {
+        commit("setError", "Cannot play with non-positive tempo");
+      } else {
+        commit("togglePlaying");
+      }
     },
   },
 
   modules: {},
 
   mutations: {
+    clearError(state): void {
+      state.error = false;
+      state.errorMessage = "";
+    },
+    setError(state, message: string): void {
+      state.errorMessage = message;
+      state.error = true;
+    },
     setTempo(state, value: number): void {
       state.tempo = value;
       state.player.tempo = value;
@@ -54,6 +69,8 @@ export default new Vuex.Store({
 
   state: {
     audioContext,
+    error: false,
+    errorMessage: "",
     gainNode,
     player,
     tempo: 120,
