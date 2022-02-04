@@ -8,16 +8,7 @@
     <v-col cols="2">
       <v-card
         @click="$store.commit('playNote', track.name)"
-        class="
-          font-weight-bold
-          ml-1
-          mr-4
-          pl-4
-          py-1
-          secondary
-          lighten-4
-          text-uppercase
-        "
+        class="font-weight-bold ml-1 mr-4 pl-4 py-1 secondary lighten-4 text-uppercase"
         data-testid="note-list-name"
       >
         {{ track.name }}

@@ -32,6 +32,5 @@ jobs:
           tag_name: ${{ github.ref }}
           release_name: Vuedio ${{ steps.extract_tag.outputs.tag }}
           body: >-
-            See the
-            [changelog](https://github.com/wolfgangwazzlestrauss/vuedio/blob/${{
+            See the [changelog](https://github.com/scruffaluff/vuedio/blob/${{
             steps.extract_tag.outputs.tag }}/CHANGELOG.md) for more information.
