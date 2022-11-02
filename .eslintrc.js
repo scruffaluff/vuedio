@@ -14,25 +14,10 @@ module.exports = {
     "@vue/prettier",
     "@vue/prettier/@typescript-eslint",
   ],
-  overrides: [
-    {
-      env: {
-        "cypress/globals": true,
-        mocha: true,
-      },
-      files: ["cypress/**/*.{j,t}s?(x)"],
-    },
-    {
-      env: {
-        jest: true,
-      },
-      files: ["tests/**/*.{j,t}s?(x)"],
-    },
-  ],
   parserOptions: {
     ecmaVersion: 2020,
   },
-  plugins: ["cypress", "prettier"],
+  plugins: ["prettier"],
   root: true,
   rules: {
     "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
