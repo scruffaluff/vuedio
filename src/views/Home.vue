@@ -2,17 +2,13 @@
   <div class="mt-12">
     <ControlBar></ControlBar>
     <v-container class="container">
-      <NoteList
-        :key="track.name"
-        :track="track"
-        v-for="track in $store.state.tracks"
-      />
+      <NoteList :key="track.name" :track="track" v-for="track in song.tracks" />
     </v-container>
-    <v-snackbar v-model="$store.state.error">
-      {{ $store.state.errorMessage }}
+    <v-snackbar v-model="song.error">
+      {{ song.errorMessage }}
       <template v-slot:action="{ attrs }">
         <v-btn
-          @click="$store.commit('clearError')"
+          @click="song.errorMessage = ''"
           color="red"
           data-testid="snackbar-error"
           text
@@ -25,21 +21,14 @@
   </div>
 </template>
 
-<script lang="ts">
-import Vue from "vue";
+<script setup lang="ts">
+import { onMounted } from "vue";
 import ControlBar from "@/components/ControlBar.vue";
 import NoteList from "@/components/NoteList.vue";
+import { useSongStore } from "@/stores/song";
 
-export default Vue.extend({
-  name: "Home",
-  components: {
-    ControlBar,
-    NoteList,
-  },
-  async mounted() {
-    await this.$store.dispatch("loadSamples");
-  },
-});
+const song = useSongStore();
+onMounted(async () => await song.loadSamples());
 </script>
 
 <style scoped>

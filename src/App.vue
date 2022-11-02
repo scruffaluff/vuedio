@@ -9,25 +9,19 @@
 
     <v-main>
       <v-container fluid>
-        <router-view></router-view>
+        <Home />
       </v-container>
     </v-main>
 
     <v-footer app>
-      <v-col class="text-center" cols="12">
-        Designed by Wolfgang Wazzle Strauss
-      </v-col>
+      <v-col class="text-center" cols="12"> Designed by Scruffaluff </v-col>
     </v-footer>
   </v-app>
 </template>
 
-<script lang="ts">
-import Vue from "vue";
+<script setup lang="ts">
+import { ref } from "vue";
+import Home from "@/views/Home.vue";
 
-export default Vue.extend({
-  name: "App",
-  data: () => ({
-    drawer: null,
-  }),
-});
+const drawer = ref(false);
 </script>

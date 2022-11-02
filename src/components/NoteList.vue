@@ -7,22 +7,17 @@
   >
     <v-col cols="2">
       <v-card
-        @click="$store.commit('playNote', track.name)"
+        @click="song.playNote(props.track.name)"
         class="font-weight-bold ml-1 mr-4 pl-4 py-1 secondary lighten-4 text-uppercase"
         data-testid="note-list-name"
       >
-        {{ track.name }}
+        {{ props.track.name }}
       </v-card>
     </v-col>
-    <v-col :key="note.index" v-for="note of track.notes">
+    <v-col :key="note.index" v-for="note of props.track.notes">
       <v-btn
         :class="{ 'lighten-4': !note.active }"
-        @click="
-          $store.commit('toggleNoteActive', {
-            trackName: track.name,
-            noteIndex: note.index,
-          })
-        "
+        @click="song.toggleNoteActive(props.track.name, note.index)"
         class="mr-1 note__button primary"
         data-testid="note-list-button"
         height="32"
@@ -33,13 +28,11 @@
   </v-row>
 </template>
 
-<script lang="ts">
-import Vue from "vue";
+<script setup lang="ts">
+import { useSongStore } from "@/stores/song";
 
-export default Vue.extend({
-  name: "NoteList",
-  props: ["track"],
-});
+const props = defineProps(["track"]);
+const song = useSongStore();
 </script>
 
 <style scoped>
