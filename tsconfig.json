@@ -2,27 +2,28 @@
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
+    "composite": true,
     "esModuleInterop": true,
-    "importHelpers": true,
     "jsx": "preserve",
-    "lib": ["dom", "dom.iterable", "esnext", "scripthost"],
+    "lib": ["dom", "esnext"],
     "module": "esnext",
     "moduleResolution": "node",
     "paths": {
       "@/*": ["src/*"]
     },
-    "skipLibCheck": true,
-    "sourceMap": true,
+    "resolveJsonModule": true,
+    "sourceMap": false,
     "strict": true,
-    "target": "ES2016"
+    "target": "esnext",
+    "types": ["vuetify"],
+    "useDefineForClassFields": true
   },
-  "exclude": ["node_modules"],
   "include": [
+    "src/**/*.d.ts",
     "src/**/*.ts",
-    "src/**/*.tsx",
     "src/**/*.vue",
     "tests/**/*.ts",
-    "tests/**/*.tsx"
+    "vite.config.ts"
   ],
   "typedocOptions": {
     "entryPoints": ["src/main.ts"],

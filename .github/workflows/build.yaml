@@ -24,17 +24,19 @@ jobs:
       - name: Install Node interpreter
         uses: actions/setup-node@v2
         with:
-          node-version: 16
+          node-version: 18
       - name: Cache Node packages
         uses: actions/cache@v2
         with:
           path: node_modules
           key: >-
-            node-16_${{ runner.os }}_npm-${{ hashFiles('package-lock.json') }}
+            node-18_${{ runner.os }}_npm-${{ hashFiles('pnpm-lock.yaml') }}
       - name: Install Node packages
-        run: npm install
+        uses: pnpm/action-setup@v2
+        with:
+          run_install: true
       - name: Check format of configuration files
-        run: npm run lint:check
+        run: pnpm run lint:check
 
   test-unit:
     name: Run test suite
@@ -45,15 +47,17 @@ jobs:
       - name: Install Node interpreter
         uses: actions/setup-node@v2
         with:
-          node-version: 16
+          node-version: 18
       - name: Cache Node packages
         uses: actions/cache@v2
         with:
           path: node_modules
           key: >-
-            node-16_${{ runner.os }}_npm-${{ hashFiles('package-lock.json') }}
+            node-18_${{ runner.os }}_npm-${{ hashFiles('pnpm-lock.yaml') }}
       - name: Install Node packages
-        run: npm install
+        uses: pnpm/action-setup@v2
+        with:
+          run_install: true
       - name: Run unit tests
         run: npm run test:unit
 
@@ -72,7 +76,7 @@ jobs:
       - name: Install Node interpreter
         uses: actions/setup-node@v2
         with:
-          node-version: 16
+          node-version: 18
       # Cypress actions installs and caches Node packages.
       - name: Run integration tests
         uses: cypress-io/github-action@v2

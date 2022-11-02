@@ -3,12 +3,12 @@
 # For more information, visit https://prettier.io/docs/en/ignore.html.
 
 .git/
+/cypress/screenshots/
+/cypress/videos/
 /dist/
 /docs/
 /public/data/
-/cypress/screenshots/
-/cypress/videos/
 /tmp/
 coverage/
 node_modules/
-package-lock.json
+pnpm-lock.yaml
