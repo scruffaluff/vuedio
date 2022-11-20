@@ -59,7 +59,7 @@ jobs:
         with:
           run_install: true
       - name: Run unit tests
-        run: npm run test:unit
+        run: npm run test:unit -- --run
 
   test-integration:
     # GitHub contains function does not support literal arrays. For more
@@ -82,7 +82,7 @@ jobs:
         uses: cypress-io/github-action@v2
         with:
           browser: chrome
-          start: npm run vue:serve
+          start: npm run dev
           wait-on: http://localhost:8080/
       - name: Upload screenshots if test suite fails
         uses: actions/upload-artifact@v2

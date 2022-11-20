@@ -5,6 +5,7 @@
 .DS_Store
 .vscode
 *.mp4
+*.tsbuildinfo
 /.env
 /cypress/fixtures/
 /cypress/screenshots/

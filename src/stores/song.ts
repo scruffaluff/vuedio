@@ -5,7 +5,7 @@ import { SampleTrack } from "@/audio/track";
 
 export const useSongStore = defineStore("song", () => {
   const audioContext = ref(new AudioContext());
-  const errorMessage = ref("");
+  const error = reactive({ active: false, message: "" });
   const gainNode = audioContext.value.createGain();
   const player = ref(new Player(16, 1 / 16, 0.075, 120.0, 0.025));
   const tempo = ref(120);
@@ -16,8 +16,12 @@ export const useSongStore = defineStore("song", () => {
     new SampleTrack("Hi-Hat", "data/hi_hat.wav", player.value.length),
   ]);
 
-  const error = computed(() => errorMessage.value.length === 0);
   const volume = computed(() => 100 * gainNode.gain.value);
+
+  function clearError(): void {
+    error.message = "";
+    error.active = false;
+  }
 
   async function loadSamples(): Promise<void> {
     await Promise.all(
@@ -46,7 +50,8 @@ export const useSongStore = defineStore("song", () => {
 
   function togglePlaying(): void {
     if (!player.value.loop && tempo.value <= 0) {
-      errorMessage.value = "Cannot play with non-positive tempo";
+      error.message = "Cannot play with non-positive tempo";
+      error.active = true;
       return;
     }
 
@@ -63,8 +68,8 @@ export const useSongStore = defineStore("song", () => {
 
   return {
     audioContext,
+    clearError,
     error,
-    errorMessage,
     gainNode,
     loadSamples,
     player,

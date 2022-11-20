@@ -5,7 +5,7 @@ import vuetify from "@/plugins/vuetify";
 import { createPinia } from "pinia";
 
 const app = createApp(App);
-registerPlugins(app);
+registerPlugins();
 app.use(createPinia());
 app.use(vuetify);
 app.mount("#app");

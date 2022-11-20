@@ -4,11 +4,11 @@
     <v-container class="container">
       <NoteList :key="track.name" :track="track" v-for="track in song.tracks" />
     </v-container>
-    <v-snackbar v-model="song.error">
-      {{ song.errorMessage }}
+    <v-snackbar v-model="song.error.active">
+      {{ song.error.message }}
       <template v-slot:action="{ attrs }">
         <v-btn
-          @click="song.errorMessage = ''"
+          @click="song.clearError()"
           color="red"
           data-testid="snackbar-error"
           text

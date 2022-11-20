@@ -10,6 +10,7 @@
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^3.4.0",
+    "@types/webfontloader": "^1.6.35",
     "@typescript-eslint/eslint-plugin": "^5.42.0",
     "@typescript-eslint/parser": "^5.42.0",
     "@vitejs/plugin-vue": "^3.0.0",
@@ -22,7 +23,7 @@
     "prettier": "^2.7.0",
     "sass": "^1.55.0",
     "typedoc": "^0.23.0",
-    "typescript": "^4.8.0",
+    "typescript": "~4.8.0",
     "vite": "^3.1.0",
     "vite-plugin-vuetify": "^1.0.0-alpha.12",
     "vitest": "^0.24.0",
@@ -33,12 +34,13 @@
     "build": "vue-tsc --noEmit && vite build",
     "dev": "vite",
     "doc:build": "typedoc",
-    "lint:check": "vue-cli-service lint --no-fix --max-errors 0 --max-warnings 0",
-    "lint:fix": "vue-cli-service lint",
+    "lint:check": "eslint --no-fix --ext js,jsx,ts,tsx --max-warnings 0 src tests",
+    "lint:fix": "eslint --fix --ext js,jsx,ts,tsx src tests",
     "preview": "vite preview",
-    "test:e2e": "vue-cli-service test:e2e",
+    "test:e2e": "playwright test",
+    "test:e2e-debug": "playwright test --debug --headed",
     "test:unit": "vitest",
-    "typecheck": "vue-tsc"
+    "typecheck": "vue-tsc --noEmit"
   },
-  "version": "0.1.0"
+  "version": "0.2.0"
 }
