@@ -1,7 +1,7 @@
-import { defineStore } from "pinia";
-import { computed, reactive, ref } from "vue";
 import Player from "@/audio/play";
 import { SampleTrack } from "@/audio/track";
+import { defineStore } from "pinia";
+import { computed, reactive, ref } from "vue";
 
 export const useSongStore = defineStore("song", () => {
   const audioContext = ref(new AudioContext());
