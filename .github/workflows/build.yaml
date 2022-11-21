@@ -30,13 +30,11 @@ jobs:
         with:
           path: node_modules
           key: >-
-            node-18_${{ runner.os }}_npm-${{ hashFiles('pnpm-lock.yaml') }}
+            node-18_${{ runner.os }}_npm-${{ hashFiles('package-lock.json') }}
       - name: Install Node packages
-        uses: pnpm/action-setup@v2
-        with:
-          run_install: true
+        run: npm ci
       - name: Check format of configuration files
-        run: pnpm run lint:check
+        run: npm run lint:check
 
   test-unit:
     name: Run test suite
@@ -53,11 +51,9 @@ jobs:
         with:
           path: node_modules
           key: >-
-            node-18_${{ runner.os }}_npm-${{ hashFiles('pnpm-lock.yaml') }}
+            node-18_${{ runner.os }}_npm-${{ hashFiles('package-lock.json') }}
       - name: Install Node packages
-        uses: pnpm/action-setup@v2
-        with:
-          run_install: true
+        run: npm ci
       - name: Run unit tests
         run: npm run test:unit -- --run
 
