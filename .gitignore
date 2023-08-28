@@ -2,15 +2,15 @@
 #
 # For more information, visit https://git-scm.com/docs/gitignore.
 
+.cache/
 .DS_Store
-.vscode
+.env*
+.vscode/
 *.mp4
-/.env
-/cypress/fixtures/
-/cypress/screenshots/
-/cypress/videos/
-/dist/
-/docs/
-/tmp/
+*.tsbuildinfo
+*report.html
 coverage/
+dist/
 node_modules/
+tests/results/
+tmp/

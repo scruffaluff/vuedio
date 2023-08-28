@@ -1,31 +1,25 @@
+// Typescript configuration file for compiling JavaScript code with types.
+//
+// For an options reference, visit https://www.typescriptlang.org/tsconfig.
+
 {
   "compilerOptions": {
-    "allowSyntheticDefaultImports": true,
-    "baseUrl": ".",
+    "allowJs": false,
     "esModuleInterop": true,
-    "importHelpers": true,
-    "jsx": "preserve",
-    "lib": ["dom", "dom.iterable", "esnext", "scripthost"],
+    "forceConsistentCasingInFileNames": true,
+    "lib": ["dom", "esnext"],
     "module": "esnext",
     "moduleResolution": "node",
+    "noUnusedLocals": true,
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["./src/*"]
     },
-    "skipLibCheck": true,
+    "resolveJsonModule": true,
     "sourceMap": true,
     "strict": true,
-    "target": "ES2016"
+    "target": "esnext",
+    "types": ["node", "vite/client"],
+    "useDefineForClassFields": true
   },
-  "exclude": ["node_modules"],
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "src/**/*.vue",
-    "tests/**/*.ts",
-    "tests/**/*.tsx"
-  ],
-  "typedocOptions": {
-    "entryPoints": ["src/main.ts"],
-    "out": "docs"
-  }
+  "include": ["src/**/*.d.ts", "src/**/*.ts", "src/**/*.vue"]
 }

@@ -2,13 +2,13 @@
 #
 # For more information, visit https://prettier.io/docs/en/ignore.html.
 
+.cache/
 .git/
-/dist/
-/docs/
-/public/data/
-/cypress/screenshots/
-/cypress/videos/
-/tmp/
+*report.html
 coverage/
+dist/
 node_modules/
 package-lock.json
+pnpm-lock.yaml
+public/
+tmp/

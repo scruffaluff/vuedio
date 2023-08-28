@@ -1,87 +1,75 @@
 <template>
-  <v-container data-testid="contol-bar-component">
-    <v-row justify="center">
-      <v-col cols="1">
-        <v-btn>
-          <v-icon
-            @click="$store.dispatch('togglePlaying')"
-            data-testid="contol-bar-play-button"
-          >
-            {{ $store.state.player.loop ? "mdi-pause" : "mdi-play" }}
-          </v-icon>
-        </v-btn>
-      </v-col>
-      <v-col cols="2">
-        <v-text-field
-          :rules="rules"
-          :value="tempo"
-          @input="setTempo"
-          data-testid="contol-bar-tempo"
-          dense
-          hide-details="auto"
-          solo-inverted
-          suffix="bpm"
-          type="number"
-        ></v-text-field>
-      </v-col>
-      <v-col cols="4">
-        <v-slider
-          :append-icon="volumeIcon"
-          :value="volume"
-          @click:append="toggleMute"
-          @input="setVolume"
-          data-testid="contol-bar-volume-slider"
-          hint="Volume"
-          max="100"
-          min="0"
-          thumb-label
-        >
-        </v-slider>
-      </v-col>
-    </v-row>
-  </v-container>
+  <div class="flex-start flex flex-row">
+    <button
+      class="btn btn-primary shadow-md"
+      data-testid="contol-bar--play-button"
+      @click="song.togglePlaying()"
+    >
+      <span :class="playIcon"> </span>
+    </button>
+    <div
+      class="mx-4 flex flex-row items-center rounded-lg bg-primary p-2 shadow-md"
+      data-testid="contol-bar--tempo"
+    >
+      <input
+        class="mr-2 w-16 bg-primary text-center outline-none"
+        :value="song.tempo"
+        type="number"
+        @input="
+          (event) =>
+            song.setTempo((event.target as HTMLInputElement).valueAsNumber)
+        "
+      />
+      <span class="mr-2">bpm</span>
+    </div>
+    <div
+      class="flex flex-row items-center"
+      data-testid="contol-bar--volume-slider"
+    >
+      <input
+        class="range range-primary range-xs mr-2"
+        :value="song.volume"
+        max="100"
+        min="0"
+        type="range"
+        @input="
+          (event) =>
+            song.setVolume((event.target as HTMLInputElement).valueAsNumber)
+        "
+      />
+      <span
+        class="bg-primary text-2xl"
+        role="button"
+        :class="volumeIcon"
+        @click="toggleMute"
+      ></span>
+    </div>
+  </div>
 </template>
 
-<script lang="ts">
-import Vue from "vue";
-import { mapState } from "vuex";
+<script setup lang="ts">
+import { computed, ref } from "vue";
+import { useSongStore } from "@/stores/song";
 
-export default Vue.extend({
-  computed: {
-    volumeIcon(): string {
-      if (this.volume === 0) {
-        return "mdi-volume-mute";
-      } else if (this.volume < 33) {
-        return "mdi-volume-low";
-      } else if (this.volume < 66) {
-        return "mdi-volume-medium";
-      } else {
-        return "mdi-volume-high";
-      }
-    },
-    ...mapState(["tempo", "volume"]),
-  },
-  data: () => ({
-    rules: [
-      (text: string): boolean | string =>
-        !isNaN(Number(text)) || "Must be a number",
-      (text: string): boolean | string =>
-        Number(text) > 0 || "Must be positive",
-    ],
-    volumePrevious: 0,
-  }),
-  methods: {
-    setTempo(value: string): void {
-      this.$store.commit("setTempo", Number(value));
-    },
-    setVolume(value: number): void {
-      this.$store.commit("setVolume", value);
-    },
-    toggleMute(): void {
-      const currentVolume = this.volume;
-      this.$store.commit("setVolume", this.volumePrevious);
-      this.volumePrevious = currentVolume;
-    },
-  },
+function toggleMute(): void {
+  const currentVolume = song.volume;
+  song.setVolume(volumePrevious.value);
+  volumePrevious.value = currentVolume;
+}
+
+const song = useSongStore();
+const volumePrevious = ref(0);
+
+const playIcon = computed(() =>
+  song.player.loop ? "icon-[ph--pause-fill]" : "icon-[ph--play-fill]"
+);
+const volumeIcon = computed(() => {
+  if (song.volume === 0) {
+    return "icon-[ph--speaker-simple-none-fill]";
+  } else if (song.volume < 50) {
+    return "icon-[ph--speaker-simple-low-fill]";
+  } else {
+    return "icon-[ph--speaker-simple-high-fill]";
+  }
 });
 </script>

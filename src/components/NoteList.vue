@@ -1,49 +1,27 @@
 <template>
-  <v-row
-    class="my-2"
-    data-testid="note-list-component"
-    justify="center"
-    no-gutters
-  >
-    <v-col cols="2">
-      <v-card
-        @click="$store.commit('playNote', track.name)"
-        class="font-weight-bold ml-1 mr-4 pl-4 py-1 secondary lighten-4 text-uppercase"
-        data-testid="note-list-name"
-      >
-        {{ track.name }}
-      </v-card>
-    </v-col>
-    <v-col :key="note.index" v-for="note of track.notes">
-      <v-btn
-        :class="{ 'lighten-4': !note.active }"
-        @click="
-          $store.commit('toggleNoteActive', {
-            trackName: track.name,
-            noteIndex: note.index,
-          })
-        "
-        class="mr-1 note__button primary"
-        data-testid="note-list-button"
-        height="32"
-        hover
-        width="32"
-      ></v-btn>
-    </v-col>
-  </v-row>
+  <div class="my-2 flex flex-row" :data-testid="testId">
+    <button
+      class="btn btn-secondary mr-4 w-32"
+      @click="() => song.playNote(props.track.name)"
+    >
+      {{ props.track.name }}
+    </button>
+    <button
+      class="btn mr-1"
+      v-for="note of props.track.notes"
+      :key="note.index"
+      :class="{ 'btn-secondary': note.active }"
+      @click="() => song.toggleNoteActive(props.track.name, note.index)"
+    ></button>
+  </div>
 </template>
 
-<script lang="ts">
-import Vue from "vue";
+<script setup lang="ts">
+import { computed } from "vue";
+import { Track } from "@/audio/track";
+import { useSongStore } from "@/stores/song";
 
-export default Vue.extend({
-  name: "NoteList",
-  props: ["track"],
-});
+const props = defineProps<{ track: Track }>();
+const song = useSongStore();
+const testId = computed(() => `note-list--${props.track.name.toLowerCase()}`);
 </script>
-
-<style scoped>
-.note__button {
-  min-width: 0 !important;
-}
-</style>

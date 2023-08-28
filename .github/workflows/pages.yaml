@@ -3,38 +3,62 @@
 # For more information, visit
 # https://docs.github.com/actions/learn-github-actions.
 
+---
 name: pages
 
-# Trigger workflow on push to the main and master branches.
+# Makes workflow run on push to the main branch.
 on:
   push:
     branches:
       - main
-      - master
+  workflow_dispatch:
+    inputs:
+      debug:
+        default: false
+        description: Use Tmate session for debugging
+        type: boolean
+
+env:
+  NPM_CONFIG_CACHE: "${{ github.workspace }}/.cache/npm"
+  NPM_CONFIG_STORE_DIR: "${{ github.workspace }}/.cache/pnpm/store"
 
 jobs:
   docs:
     name: Build and publish website
+    permissions:
+      contents: write
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code repository
-        uses: actions/checkout@v2
-      - name: Install Node interpreter
-        uses: actions/setup-node@v2
-        with:
-          node-version: 16
+        uses: actions/checkout@v3
       - name: Cache Node packages
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
-          path: node_modules
+          path: |
+            .cache
+            node_modules
           key: >-
-            node-16_${{ runner.os }}_npm-${{ hashFiles('package-lock.json') }}
+            node-20_${{ runner.os }}_pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+      - name: Install Node interpreter
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20"
       - name: Install Node packages
-        run: npm install
+        run: |
+          node --version
+          corepack enable pnpm
+          pnpm --version
+          pnpm install --frozen-lockfile
       - name: Build website
-        run: npm run vue:build
-      - name: Publish website
+        run: pnpm run build
+      - name: Publish documentation
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: dist
+          github_token: ${{ github.token }}
+          publish_dir: site
+      - name: Setup Tmate session if debug enabled
+        if: >-
+          ${{ always() && github.event_name == 'workflow_dispatch' &&
+          inputs.debug }}
+        timeout-minutes: 60
+        uses: mxschmitt/action-tmate@v3
