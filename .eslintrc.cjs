@@ -4,19 +4,21 @@
 
 module.exports = {
   env: {
+    browser: true,
     node: true,
   },
-  // The order of the extends plugins affects linter errors.
   extends: [
-    "plugin:vue/essential",
+    "plugin:vue/vue3-recommended",
     "eslint:recommended",
     "@vue/typescript/recommended",
-    "@vue/prettier",
+    "prettier",
   ],
+  parser: "vue-eslint-parser",
   parserOptions: {
     ecmaVersion: "latest",
+    sourceType: "module",
   },
-  plugins: ["prettier"],
+  plugins: ["@typescript-eslint"],
   root: true,
   rules: {
     "@typescript-eslint/no-unused-vars": [
@@ -28,5 +30,10 @@ module.exports = {
         vars: "all",
       },
     ],
+    "@typescript-eslint/ban-ts-comment": [
+      "error",
+      { "ts-expect-error": "allow-with-description" },
+    ],
+    "vue/attributes-order": "off",
   },
 };

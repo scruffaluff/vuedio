@@ -1,0 +1,25 @@
+# Docker configuration file for ignoring paths while collecting context.
+#
+# For more information, visit
+# https://codefresh.io/docker-tutorial/not-ignore-dockerignore-2/.
+
+.benchmarks/
+.cache/
+.coverage
+.DS_Store
+.env
+.git/
+.github/
+.gitignore
+.vscode/
+*.dockerfile
+*.swp
+*.tar.gz
+*report.html
+assets/
+dist/
+Dockerfile
+node_modules/
+nohup.out
+site/
+tmp/

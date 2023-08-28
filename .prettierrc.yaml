@@ -3,6 +3,11 @@
 # For more information, visit https://prettier.io/docs/en/configuration.html.
 
 arrowParens: always
+organizeImportsSkipDestructiveCodeActions: true
+plugins:
+  - prettier-plugin-organize-attributes
+  - prettier-plugin-organize-imports
+  - prettier-plugin-tailwindcss
 printWidth: 80
 proseWrap: always
 semi: true
