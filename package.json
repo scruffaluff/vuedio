@@ -21,6 +21,7 @@
     "daisyui": "^3.6.1",
     "eslint": "^8.47.0",
     "eslint-plugin-prettier": "^5.0.0",
+    "eslint-plugin-tailwindcss": "^3.13.0",
     "eslint-plugin-vue": "^9.17.0",
     "lighthouse": "^11.0.0",
     "postcss": "^8.4.28",

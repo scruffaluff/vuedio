@@ -1,5 +1,5 @@
 <template>
-  <div class="flex-start flex flex-row">
+  <div class="flex flex-row">
     <button
       class="btn btn-primary shadow-md"
       data-testid="contol-bar--play-button"

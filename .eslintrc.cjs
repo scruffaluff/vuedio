@@ -9,6 +9,7 @@ module.exports = {
   },
   extends: [
     "plugin:vue/vue3-recommended",
+    "plugin:tailwindcss/recommended",
     "eslint:recommended",
     "@vue/typescript/recommended",
     "prettier",

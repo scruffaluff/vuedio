@@ -18,14 +18,47 @@ on:
         description: Use Tmate session for debugging
         type: boolean
       job:
-        default: image
+        default: container
         description: CI job to run
         options:
-          - image
+          - container
           - release
         type: choice
 
 jobs:
+  container:
+    if: >-
+      ${{ github.event_name != 'workflow_dispatch' || inputs.job == 'container'
+      }}
+    name: Build and push Docker image
+    needs: release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code repository
+        uses: actions/checkout@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_TOKEN }}
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v3
+        with:
+          context: "."
+          file: Dockerfile
+          push: true
+          tags: |
+            scruffaluff/vuedio:${{ github.ref_name }}
+            scruffaluff/vuedio:latest
+      - name: Setup Tmate session if debug enabled
+        if: >-
+          ${{ always() && github.event_name == 'workflow_dispatch' &&
+          inputs.debug }}
+        timeout-minutes: 60
+        uses: mxschmitt/action-tmate@v3
+
   release:
     if: >-
       ${{ github.event_name != 'workflow_dispatch' || inputs.job == 'release' }}
@@ -40,8 +73,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           body: >-
-            See the
-            [changelog](https://github.com/scruffaluff/vuedio/blob/blob/${{
+            See the [changelog](https://github.com/scruffaluff/vuedio/blob/${{
             github.ref_name }}/CHANGELOG.md) for more information.
           name: Vuedio ${{ github.ref_name }}
           tag_name: ${{ github.ref }}
