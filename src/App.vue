@@ -9,6 +9,7 @@
       </div>
       <a
         class="icon-[ph--github-logo-fill] ml-auto"
+        aria-label="GitHub repository"
         href="https://github.com/scruffaluff/vuedio"
       ></a>
     </nav>

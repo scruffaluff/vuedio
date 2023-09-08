@@ -12,6 +12,7 @@ module.exports = {
     "plugin:tailwindcss/recommended",
     "eslint:recommended",
     "@vue/typescript/recommended",
+    "plugin:vuejs-accessibility/recommended",
     "prettier",
   ],
   parser: "vue-eslint-parser",
@@ -36,5 +37,7 @@ module.exports = {
       { "ts-expect-error": "allow-with-description" },
     ],
     "vue/attributes-order": "off",
+    "vuejs-accessibility/click-events-have-key-events": "off",
+    "vuejs-accessibility/interactive-supports-focus": "off",
   },
 };

@@ -13,6 +13,7 @@
     >
       <input
         class="mr-2 w-16 bg-primary text-center outline-none"
+        aria-label="Tempo"
         :value="song.tempo"
         type="number"
         @input="
@@ -28,6 +29,7 @@
     >
       <input
         class="range range-primary range-xs mr-2"
+        aria-label="Volume"
         :value="song.volume"
         max="100"
         min="0"
