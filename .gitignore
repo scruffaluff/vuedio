@@ -2,15 +2,27 @@
 #
 # For more information, visit https://git-scm.com/docs/gitignore.
 
+*.bak
+*.log
+*.swp
+*.timestamp-*
+*.tmp
+*.tsbuildinfo
+.benchmarks/
 .cache/
+.coverage*
 .DS_Store
 .env*
+.localized
+.unlighthouse/
+.vendor/
 .vscode/
-*.mp4
-*.tsbuildinfo
-*report.html
-coverage/
-dist/
+.zed/
+build/
+f1
 node_modules/
-tests/results/
+nohup.out
+stats.html
+test/report/
+test/result/
 tmp/

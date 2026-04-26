@@ -1,4 +1,4 @@
-import Note from "@/audio/note";
+import type Note from "@/audio/note";
 import { getSample } from "@/audio/util";
 
 export interface Track {

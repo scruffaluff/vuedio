@@ -1,27 +1,34 @@
-// Vite web builder configuration file.
-//
-// For more information, visit https://vitejs.dev/config.
+/**
+ * Vite configuration file for building web projects.
+ *
+ * For more information, visit https://vitejs.dev/config.
+ */
 
+import tailwindcss from "@tailwindcss/vite";
 import vue from "@vitejs/plugin-vue";
-import { fileURLToPath, URL } from "node:url";
-import { defineConfig } from "vite";
+import url, { URL } from "node:url";
+import * as vitePluginHtml from "vite-plugin-html";
+import * as vitest from "vitest/config";
 
-export default defineConfig({
-  base: "./",
+export default vitest.defineConfig({
   build: {
-    emptyOutDir: false,
-    outDir: "../dist",
+    cssMinify: "lightningcss",
+    emptyOutDir: true,
+    outDir: "../build/dist",
   },
-  plugins: [vue()],
-  publicDir: "../public",
+  plugins: [
+    vue(),
+    tailwindcss(),
+    vitePluginHtml.createHtmlPlugin({ minify: true }),
+  ],
+  publicDir: "../data",
   resolve: {
     alias: {
-      "@": fileURLToPath(new URL("src", import.meta.url)),
+      "@": url.fileURLToPath(new URL("src", import.meta.url)),
     },
   },
   root: "src",
   test: {
-    include: ["src/**/*.test.ts"],
-    root: ".",
+    include: ["**/*.test.ts"],
   },
 });

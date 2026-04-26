@@ -1,25 +1,40 @@
-// Typescript configuration file for compiling JavaScript code with types.
-//
-// For an options reference, visit https://www.typescriptlang.org/tsconfig.
-
 {
   "compilerOptions": {
     "allowJs": false,
+    "erasableSyntaxOnly": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "lib": ["dom", "esnext"],
+    "isolatedModules": true,
+    "lib": ["dom", "dom.iterable", "esnext"],
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
+    "jsx": "preserve",
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": false,
+    "noUncheckedSideEffectImports": true,
     "noUnusedLocals": true,
+    "noUnusedParameters": true,
     "paths": {
       "@/*": ["./src/*"]
     },
     "resolveJsonModule": true,
     "sourceMap": true,
     "strict": true,
+    "strictNullChecks": true,
     "target": "esnext",
+    "tsBuildInfoFile": "build/tsconfig.app.tsbuildinfo",
     "types": ["node", "vite/client"],
     "useDefineForClassFields": true
   },
-  "include": ["src/**/*.d.ts", "src/**/*.ts", "src/**/*.vue"]
+  "exclude": [
+    ".cache/",
+    ".unlighthouse/",
+    ".vendor/",
+    "build/",
+    "coverage/",
+    "node_modules/",
+    "tmp/"
+  ],
+  "extends": "@vue/tsconfig/tsconfig.json",
+  "include": ["vite.config.ts", "src/**/*.ts", "src/**/*.vue"]
 }

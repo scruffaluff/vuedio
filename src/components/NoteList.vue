@@ -18,7 +18,7 @@
 
 <script setup lang="ts">
 import { computed } from "vue";
-import { Track } from "@/audio/track";
+import type { Track } from "@/audio/track";
 import { useSongStore } from "@/stores/song";
 
 const props = defineProps<{ track: Track }>();

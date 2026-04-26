@@ -30,10 +30,10 @@ export const useSongStore = defineStore("song", () => {
   const player = ref(new Player(16, 1 / 16, 0.075, 120.0, 0.025));
   const tempo = ref(120);
   const tracks = reactive([
-    new SampleTrack("Kick", "data/kick.wav", player.value.length),
-    new SampleTrack("Snare", "data/snare.wav", player.value.length),
-    new SampleTrack("Mid-Tom", "data/tom.wav", player.value.length),
-    new SampleTrack("Hi-Hat", "data/hi_hat.wav", player.value.length),
+    new SampleTrack("Kick", "audio/kick.wav", player.value.length),
+    new SampleTrack("Snare", "audio/snare.wav", player.value.length),
+    new SampleTrack("Mid-Tom", "audio/tom.wav", player.value.length),
+    new SampleTrack("Hi-Hat", "audio/hi_hat.wav", player.value.length),
   ]);
   const volume = ref(100.0);
 

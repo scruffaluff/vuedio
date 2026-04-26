@@ -1,6 +1,6 @@
-import Note from "@/audio/note";
+import type Note from "@/audio/note";
 import Player from "@/audio/play";
-import { Track } from "@/audio/track";
+import type { Track } from "@/audio/track";
 import { durationToSeconds } from "@/audio/util";
 import { expect, test } from "vitest";
 

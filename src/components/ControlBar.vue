@@ -8,11 +8,11 @@
       <span :class="playIcon"> </span>
     </button>
     <div
-      class="mx-4 flex flex-row items-center rounded-lg bg-primary p-2 shadow-md"
+      class="bg-primary mx-4 flex flex-row items-center rounded-lg p-2 shadow-md"
       data-testid="contol-bar--tempo"
     >
       <input
-        class="mr-2 w-16 bg-primary text-center outline-none"
+        class="bg-primary mr-2 w-16 text-center outline-none"
         :value="song.tempo"
         type="number"
         @input="

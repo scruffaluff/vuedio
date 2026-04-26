@@ -1,7 +1,7 @@
 <template>
-  <header class="bg-gradient-to-r from-primary/60 to-primary">
+  <header class="from-primary/60 to-primary bg-linear-to-r">
     <nav
-      class="flex flex-row items-center px-16 py-4 text-4xl font-extrabold text-primary-content"
+      class="text-primary-content flex flex-row items-center px-16 py-4 text-4xl font-extrabold"
     >
       <div class="flex flex-1 flex-row items-center justify-center">
         <div class="icon-[ph--piano-keys-fill] mr-3" alt="Vuedio Logo"></div>

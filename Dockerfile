@@ -2,14 +2,19 @@
 #
 # For more information, visit https://docs.docker.com/engine/reference/builder.
 
-FROM node:20.5.0-alpine3.18 as build
+FROM debian:13 AS build
 
 WORKDIR /repo
 
+RUN apt-get update && apt-get install --yes curl
+
+RUN curl -LSfs https://scruffaluff.github.io/picoware/install/just.sh | sh -s \
+  -- --global
+
 COPY . .
 
-RUN corepack enable pnpm && pnpm install --frozen-lockfile && pnpm build
+RUN just setup build
 
-FROM nginxinc/nginx-unprivileged:1.25.2-alpine3.18
+FROM nginx:1.30
 
-COPY --chmod=755 --from=build /repo/dist /usr/share/nginx/html
+COPY --from=build /repo/build/dist /usr/share/nginx/html

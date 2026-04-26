@@ -1,5 +1,9 @@
 # Vuedio
 
-Vuedio is
-[Web Audio](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API)
-music sampler written in VueJS.
+Music sampler written in VueJS available at
+https://scruffaluff.github.io/vuedio.
+
+## Contributing
+
+For guidance on setting up a development environment and making a contribution
+to Vuedio, see the [contributing guide](CONTRIBUTING.md).

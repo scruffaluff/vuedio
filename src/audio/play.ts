@@ -1,4 +1,4 @@
-import { Track } from "@/audio/track";
+import type { Track } from "@/audio/track";
 import { durationToSeconds } from "@/audio/util";
 
 /**

@@ -1,7 +1,36 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/**
+ * Application styles.
+ */
+
+@import "tailwindcss";
+@source ".";
+@plugin "@iconify/tailwind4";
+
+@theme {
+  --font-mono: "Fira Code", monospace;
+  --font-sans: "Fira Sans", sans-serif;
+  --font-serif: "PT Serif", serif;
+}
 
 .btn {
+  border: 0;
   text-transform: none;
+}
+
+.input {
+  outline-style: none;
+}
+
+.input:not(.validator) {
+  border-color: var(--color-base-300);
+}
+
+.select {
+  outline-style: none;
+  border-color: var(--color-base-300);
+}
+
+.textarea {
+  border-color: var(--color-base-300);
+  outline-style: none;
 }
