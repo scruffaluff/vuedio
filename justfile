@@ -4,6 +4,7 @@
 
 set script-interpreter := ["nu"]
 set shell := ["nu", "--commands"]
+
 export PATH := if os() == "windows" {
   justfile_directory() / ".vendor/bin;" + justfile_directory() /
   ".vendor/lib/pnpm;" + env("PATH")
@@ -74,17 +75,14 @@ setup: _setup
   print $"Using Pnpm (pnpm --version)."
   pnpm env use --global lts
   print "Installing packages with Pnpm."
-  if ($env.JUST_INIT? | is-empty) {
+  if ($env.INIT? | into bool --relaxed) {
     pnpm install --frozen-lockfile
+    just format
   } else {
     pnpm install
   }
   print "Installing browsers with Playwright."
-  try {
-    pnpm exec playwright install --with-deps chromium
-  } catch {
-    pnpm exec playwright install chromium
-  }
+  pnpm exec playwright install chromium
 
 [unix]
 _setup:
